@@ -74,6 +74,12 @@ class BookFilter(filters.OrderingFilter):
         model = Book
         fields = ['title', 'author', 'publication_year']
 
+class BookFilter(filters.SearchFilter):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'publication_year']
+
+
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
