@@ -57,7 +57,7 @@ class BookAPITestCase(APITestCase):
 self.client.login(username='your_username', password='your_password')
 self.client.force_authenticate(user=self.user)
 
-lass BookAPITestCase(APITestCase):
+class BookAPITestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_superuser('testuser', 'testuser@example.com', 'password')
         self.client.force_authenticate(user=self.user)
