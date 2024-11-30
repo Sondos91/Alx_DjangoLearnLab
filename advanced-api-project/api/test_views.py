@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from .models import Book
 from .serializers import BookSerializer
+from django.contrib.auth.models import User
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
@@ -53,3 +54,10 @@ class BookAPITestCase(APITestCase):
         user = self.client.force_authenticate(user=self.user)
         response = self.client.post(reverse('book-list'), {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+self.client.login(username='your_username', password='your_password')
+self.client.force_authenticate(user=self.user)
+
+lass BookAPITestCase(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser('testuser', 'testuser@example.com', 'password')
+        self.client.force_authenticate(user=self.user)
