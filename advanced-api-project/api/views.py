@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework.views import APIView
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
@@ -27,3 +28,28 @@ class BookDetailView(APIView):
         book = Book.objects.get(pk=pk)
         serializer = BookSerializer(book)
         return Response(serializer.data)
+    
+class BookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookDetailView(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = 'pk'
+
+class BookCreateView(generics.CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+class BookUpdateView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
+
+class BookDeleteView(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
