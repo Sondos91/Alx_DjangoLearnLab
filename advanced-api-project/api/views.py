@@ -69,7 +69,7 @@ class BookDeleteView(generics.DestroyAPIView):
     lookup_field = 'pk'
     permission_classes = [IsAuthenticated]
 
-class BookFilter(filters.FilterSet):
+class BookFilter(filters.OrderingFilter):
     class Meta:
         model = Book
         fields = ['title', 'author', 'publication_year']
