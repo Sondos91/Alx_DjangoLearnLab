@@ -54,8 +54,8 @@ class BookAPITestCase(APITestCase):
         user = self.client.force_authenticate(user=self.user)
         response = self.client.post(reverse('book-list'), {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-self.client.login(username='your_username', password='your_password')
-self.client.force_authenticate(user=self.user)
+        self.client.login(username='your_username', password='your_password')
+        self.client.force_authenticate(user=self.user)
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
