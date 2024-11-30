@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework.filters import DjangoFilterBackend
+from django_filters import rest_framework
 
 class AuthorListView(APIView):
     def get(self, request):
