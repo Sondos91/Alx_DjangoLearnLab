@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 
 urlpatterns = [
     # Add URL patterns for your views here
