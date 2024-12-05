@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_COOKIE_SECURE = False  # Ensure this is set for HTTPS
 
 # Application definition
 
