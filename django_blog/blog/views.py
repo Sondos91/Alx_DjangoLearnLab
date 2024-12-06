@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy , reverse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
@@ -122,14 +123,14 @@ class CommentCreateView(CreateView):
     template_name = 'blog/comment_form.html'
     
     def form_valid(self , form):
-        post = get_object_or_404(Post , id = self.kwargs['post_id'])
+        post = get_object_or_404(Post , id = self.kwargs['pk'])
         form.instance.author = self.request.user
         form.instance.post = post
         return super().form_valid(form)
     
     def get_success_url(self):
-        post_id = self.kwargs['post_id']
-        return reverse('post_detail' , kwargs = {'post_id':post_id})
+        post_id = self.kwargs['pk']
+        return reverse('post_detail' , kwargs = {'pk':post_id})
     
 
 class CommentListView(ListView):
@@ -179,3 +180,18 @@ class CommentDeleteView(DeleteView , LoginRequiredMixin , UserPassesTestMixin):
     def test_func(self):
         comment = self.get_object()
         return comment.author == self.request.user
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = 'blog/blogs.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Post.objects.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query)|
+                Q(tags_name_icontains=query).distinct())
+        else:
+            return Post.objects.all()

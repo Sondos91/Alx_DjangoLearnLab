@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-_@e$vo#tb45^5g@%z^#7wrlvs7#9cgf3gxtl)x&%c!726m#^j1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+TAGGIT_CASE_INSENSITIVE = True
+
 ALLOWED_HOSTS = []
 
 CSRF_COOKIE_SECURE = False  # Ensure this is set for HTTPS
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'taggit',
 
 ]
 
