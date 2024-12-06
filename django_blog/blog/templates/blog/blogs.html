@@ -1,0 +1,11 @@
+{%extends 'blog/base.html'%} {% block title%} All blogs {%endblock%}
+{%load static %}
+
+{% block content%}
+
+{% for post in posts %}
+    <h4> {{post.title}} </h4>
+    <p> {{post.content}} </P>
+    <strong> {{post.published_date}} </strong>
+{% endfor %}
+{% endblock %}
