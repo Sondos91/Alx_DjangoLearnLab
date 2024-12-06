@@ -6,6 +6,8 @@
 {% for post in posts %}
     <h4> {{post.title}} </h4>
     <p> {{post.content}} </P>
+        <a href = "{% url 'post_detail' post.id %}">click here </a>
+        <a href = "{% url 'comment_list' post.id %}">show comments </a>
     <strong> {{post.published_date}} </strong>
 {% endfor %}
 {% endblock %}
