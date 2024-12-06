@@ -7,5 +7,12 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
 <p>Published on: {{ post.published_date}}</p>
-
+{%for comment in post.all%}
+<ul>
+    <p> {{comment.author}} : {{ comment.content}} </p>
+</u>
+{%empty%}
+<p> No comment yet </p>
+{%endfor%}
+<a herf= "{%url ' create_comment'post.id%}"> comment </a>
 {% endblock %}

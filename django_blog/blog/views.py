@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import SignUpForm, loginForm , ProfileForm , PostForm
-from .models import Post
+from .forms import SignUpForm, loginForm , ProfileForm , PostForm , CommentForm
+from .models import Post , Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -11,7 +11,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
-    return render(request, 'blog/base.html')
+    posts=Post.objects.all()
+    context = {'posts': posts }
+    return render(request, 'blog/blogs.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -113,3 +115,18 @@ class DeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         post = self.get_object()
         return post.author == self.request.user
+    
+def create_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        Comment = CommentForm(request.POST)
+        if Comment.is_valid():
+            Comment.save(commit=False)
+            Comment.post = post
+            Comment.author = request.user
+            Comment.save()
+            
+            return redirect('post_detail', pk=post.pk)
+    else:
+            Comment = CommentForm()
+    return render(request, 'blog/comment_form.html', {'Comment': Comment, 'post': post})

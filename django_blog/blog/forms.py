@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from blog.models import Post
+from blog.models import Post , Comment
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Input a valid email address.')
@@ -22,3 +22,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
