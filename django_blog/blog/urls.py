@@ -14,8 +14,8 @@ urlpatterns = [
     path('login/', views.login_view , name='login'),
     path('logout/', views.logout_view , name='logout'),
     path('register/', views.register , name='register'),
-    path('posts/<int:post_id>/comments/new/', views.CommentCreateView.as_view() , name='create_comment'),
+    path('post/<int:pk>/comments/new', views.CommentCreateView.as_view() , name='create_comment'),
     path('posts/<int:post_id>/comments/', views.CommentListView.as_view() , name='comment_list'),
-    path ('posts/<int:post_id>/comments/<int:pk>/edit', views.CommentUpdateView.as_view() , name='comment_update'),
-    path ('posts/<int:post_id>/comments/<int:pk>/delete', views.CommentDeleteView.as_view() , name='comment_delete'),
+    path('comment/<int:pk>/update/', views.CommentUpdateView.as_view() , name='comment_update'),
+    path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view() , name='comment_delete'),
 ]
