@@ -84,7 +84,7 @@ class DetailView(DetailView):
     def get_queryset(self):
         return Post.objects.filter(id = self.kwargs['pk'])
 
-class UpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']  # Fields to display in the form
     template_name = 'blog/post_update.html'  # Template for the update form
@@ -104,7 +104,7 @@ class UpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return post.author == self.request.user
     
-class DeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'  # Template for confirmation
     success_url = reverse_lazy('blog')  # Redirect to the post list after deletion
