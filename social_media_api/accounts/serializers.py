@@ -25,4 +25,10 @@ class TokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Token
         fields = ['key']
-        
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)  # Ensure password is write-only
+
+    class Meta:
+        model = get_user_model()  # Use the custom user model
+        fields = ['username', 'email', 'password', 'bio', 'profile_picture']
